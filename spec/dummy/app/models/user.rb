@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-  extend Caber::Subject
+  include Caber::Subject
 end

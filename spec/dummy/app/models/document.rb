@@ -1,3 +1,3 @@
 class Document < ApplicationRecord
-  extend Caber::Object
+  include Caber::Object
 end
