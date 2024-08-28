@@ -1,6 +1,12 @@
 require "caber/version"
 require "caber/engine"
+require "caber/configuration"
 
 module Caber
-  # Your code goes here...
+  @@configuration = Caber::Configuration.new
+  mattr_reader :configuration
+
+  def self.configure
+    yield @@configuration
+  end
 end
