@@ -1,6 +1,6 @@
 require "caber/version"
+require "caber/railtie"
 
 module Caber
-  class Error < StandardError; end
   # Your code goes here...
 end
