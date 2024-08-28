@@ -1,0 +1,9 @@
+# Inspired by https://github.com/Energy-Sparks/energy-sparks/blob/master/.github/actions/setup/action.yml
+name: Setup
+description: Set up build environment
+runs:
+  using: composite
+  steps:
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
