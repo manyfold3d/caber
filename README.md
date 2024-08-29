@@ -165,7 +165,7 @@ class Role < ApplicationRecord
   scopify
 end
 
-document.grant_permission_to "editor", Role.find(name: "editor")
+document.grant_permission_to "editor", Role.find_by(name: "editor")
 
 User.with_role(document.permitted_roles.with_permission("editor"))
 # => all users with a role that can edit the document
