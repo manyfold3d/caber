@@ -59,7 +59,28 @@ user.has_permission_on? ["viewer", "editor"], document
 To grant or query permissions globally (for instance, for a public view permission), you can use a `nil` subject:
 
 ```
-document.grant_permission_to :view, nil
+document.grant_permission_to "viewer", nil
+```
+
+### Relationships
+
+In order to query lists of available objects, subjects need to be told what types they can be granted permission on. For each type, after including `Caber::Subject`, call `can_have_permissions_on` with the ActiveRecord class you want to be able to get lists of. `permitted_*` relationships are then automatically added for that type:
+
+```
+class User < ApplicationRecord
+  include Caber::Subject
+  can_have_permissions_on Document
+end
+
+user.permitted_documents
+# => all documents with any granted permission
+
+user.permitted_documents.with_permission "viewer"
+# => all documents that the user has viewer permission on
+
+user.permitted_documents.with_permission ["viewer", "editor"]
+# => all documents that the user has viewer or editor permission on
+
 ```
 
 ## Development

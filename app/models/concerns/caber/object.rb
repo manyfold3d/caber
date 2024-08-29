@@ -2,6 +2,7 @@ module Caber::Object
   extend ActiveSupport::Concern
 
   included do
+    scope :with_permission, ->(permission) { where("caber_relations.permission": permission) }
   end
 
   def grant_permission_to(permission, subject)
