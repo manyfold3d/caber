@@ -1,6 +1,11 @@
 # Caber
 
-A simple ReBAC / Zanzibar gem for Rails apps.
+![Gem Downloads (for latest version)](https://img.shields.io/gem/dtv/caber)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/rubygems/caber)
+![Dependent repos (via libraries.io)](https://img.shields.io/librariesio/dependent-repos/rubygems/caber)
+
+
+A simple [ReBAC](https://en.wikipedia.org/wiki/Relationship-based_access_control) / [Zanzibar](https://research.google/pubs/zanzibar-googles-consistent-global-authorization-system/) backend plugin for Rails apps. Allows you to easily specify permission relationships between pairs of objects, e.g. granting edit permission on a document to a specific user, like in Google Docs.
 
 ## Installation
 
