@@ -37,13 +37,21 @@ end
 Now you're ready to grant some permissions! To give someone permission on something:
 
 ```
-document.grant_permission_to :view, user
+document.grant_permission_to "viewer", user
 ```
 
 You can query permissions in both directions:
 ```
-document.grants_permission_to? :view, user
-user.has_permission_to? :view, document
+document.grants_permission_to? "viewer", user
+user.has_permission_to? "viewer", document
+```
+
+You can also check more than one permission at once by passing an array.
+The check will be positive if *either* are granted:
+
+```
+document.grants_permission_to? ["viewer", "editor"], user
+user.has_permission_to? ["viewer", "editor"], document
 ```
 
 ### Global permissions

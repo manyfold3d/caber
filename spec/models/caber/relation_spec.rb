@@ -27,6 +27,24 @@ RSpec.describe Caber::Relation, :multiuser do
     end
   end
 
+  context "checking more than one permission at once" do
+    before do
+      object.grant_permission_to "viewer", alice
+    end
+
+    it "confirms that alice has been given one of viewer or owner permission" do
+      expect(object.grants_permission_to?(["viewer", "owner"], alice)).to be true
+    end
+
+    it "confirms that alice has one of viewer or owner permission" do
+      expect(alice.has_permission_on?(["viewer", "owner"], object)).to be true
+    end
+
+    it "confirms that alice doesn't have either of editor or owner permission" do
+      expect(object.grants_permission_to?(["editor", "owner"], alice)).to be false
+    end
+  end
+
   context "when anyone can view a object" do
     before do
       object.grant_permission_to "viewer", nil
