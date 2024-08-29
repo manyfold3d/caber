@@ -2,7 +2,7 @@ module Caber::Object
   extend ActiveSupport::Concern
 
   included do
-    has_many :caber_relations, as: :object, class_name: "Caber::Relation"
+    has_many :caber_relations, as: :object, class_name: "Caber::Relation", dependent: :destroy
     scope :with_permission, ->(permission) { where("caber_relations.permission": permission) }
 
     def self.can_grant_permissions_to(model)
@@ -25,5 +25,4 @@ module Caber::Object
   def revoke_all_permissions(subject)
     Caber::Relation.where(object: self, subject: subject).destroy_all
   end
-
 end

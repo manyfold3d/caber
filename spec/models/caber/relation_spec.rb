@@ -117,15 +117,27 @@ RSpec.describe Caber::Relation, :multiuser do
     end
 
     it "removes a specific permission" do
-      expect{object.revoke_permission("viewer", alice)}.
-        to change { alice.has_permission_on?("viewer", object) }.from(true).to(false)
+      expect { object.revoke_permission("viewer", alice) }
+        .to change { alice.has_permission_on?("viewer", object) }.from(true).to(false)
     end
 
     it "removes all permissions" do
-      expect{object.revoke_all_permissions(alice)}.
-        to change { alice.has_permission_on?("viewer", object) }.from(true).to(false)
+      expect { object.revoke_all_permissions(alice) }
+        .to change { alice.has_permission_on?("viewer", object) }.from(true).to(false)
     end
-
   end
 
+  context "removing permissions on object/subject removal" do
+    before do
+      object.grant_permission_to "viewer", alice
+    end
+
+    it "removes permission when subject is removed" do
+      expect { alice.destroy }.to change { Caber::Relation.count }.by(-1)
+    end
+
+    it "removes permission when object is removed" do
+      expect { object.destroy }.to change { Caber::Relation.count }.by(-1)
+    end
+  end
 end
