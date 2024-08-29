@@ -102,6 +102,19 @@ document.permitted_users.with_permission ["viewer", "editor"]
 
 ```
 
+### Revoking permissions
+
+You can revoke some or all permissions from a user:
+
+```
+# Remove a specific permission
+document.revoke_permission("viewer", user)
+
+# Remove all permissions from a user
+document.revoke_all_permissions(user)
+```
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests.
