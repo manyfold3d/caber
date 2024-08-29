@@ -143,3 +143,5 @@ This gem was created as part of [Manyfold](https://manyfold.app), with funding f
 
 [<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
 [<img src="https://nlnet.nl/image/logos/NGI0_tag.svg" alt="NGI Zero Logo" width="20%" />](https://nlnet.nl/entrust)
+
+Name: `"ReBAC".downcase.reverse`
