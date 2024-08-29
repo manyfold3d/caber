@@ -123,6 +123,49 @@ Document.granted_to "viewer", user
 # => All the documents that user has "viewer" permission on
 ```
 
+## Usage with other gems
+
+### Pundit
+
+Caber makes for nice clear [Pundit](https://github.com/varvet/pundit) policies:
+
+```
+class DocumentPolicy < ApplicationPolicy
+  class Scope < ApplicationPolicy::Scope
+    def resolve
+      scope.granted_to(["viewer", "editor", "owner"], user)
+    end
+  end
+
+  def update?
+    record.grants_permission_to? ["editor", "owner"], user
+  end
+end
+```
+
+### Rolify
+
+Caber doesn't include groups specifically, but you can integrate it easily with a role management gem like [Rolify](https://github.com/RolifyCommunity/rolify) pretty easily. Make your Role class a subject, and you can grant permissions to roles:
+
+```
+class Document < ApplicationRecord
+  include Caber::Object
+  can_grant_permissions_to Role
+end
+
+class Role < ApplicationRecord
+  include Caber::Subject
+  can_have_permissions_on Document
+
+  scopify
+end
+
+document.grant_permission_to "editor", Role.find(name: "editor")
+
+User.with_role(document.permitted_roles.with_permission("editor"))
+# => all users with a role that can edit the document
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests.
@@ -131,11 +174,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/manyfold3d/caber. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## Code of Conduct
-
-Everyone interacting in the Caber project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/manyfold3d/caber/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/manyfold3d/caber. This project is intended to be a safe, welcoming space for collaboration; everyone interacting in the Caber project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/manyfold3d/caber/blob/master/CODE_OF_CONDUCT.md).
 
 ## Acknowledgements
 
