@@ -11,8 +11,7 @@ module Caber::Object
 
     scope :granted_to, ->(permission, subject) {
                          includes(:caber_relations).where(
-                           "caber_relations.subject_id": subject.id,
-                           "caber_relations.subject_type": subject.class.name,
+                           "caber_relations.subject": subject,
                            "caber_relations.permission": permission
                          )
                        }
