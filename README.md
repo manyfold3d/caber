@@ -114,6 +114,14 @@ document.revoke_permission("viewer", user)
 document.revoke_all_permissions(user)
 ```
 
+### Finding objects
+
+You can get lists of objects that a user has some permission on:
+
+```
+Document.granted_to "viewer", user
+# => All the documents that user has "viewer" permission on
+```
 
 ## Development
 
