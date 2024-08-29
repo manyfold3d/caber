@@ -110,4 +110,22 @@ RSpec.describe Caber::Relation, :multiuser do
     #   expect(alice.permitted_documents.with_permission("viewer")).to eq [object]
     # end
   end
+
+  context "revoking permissions" do
+    before do
+      object.grant_permission_to "viewer", alice
+    end
+
+    it "removes a specific permission" do
+      expect{object.revoke_permission("viewer", alice)}.
+        to change { alice.has_permission_on?("viewer", object) }.from(true).to(false)
+    end
+
+    it "removes all permissions" do
+      expect{object.revoke_all_permissions(alice)}.
+        to change { alice.has_permission_on?("viewer", object) }.from(true).to(false)
+    end
+
+  end
+
 end
