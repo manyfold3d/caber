@@ -128,4 +128,18 @@ RSpec.describe Caber::Relation, :multiuser do
 
   end
 
+  context "removing permissions on object/subject removal" do
+    before do
+      object.grant_permission_to "viewer", alice
+    end
+
+    it "removes permission when subject is removed" do
+      expect { alice.destroy }.to change {Caber::Relation.count}.by(-1)
+    end
+
+    it "removes permission when object is removed" do
+      expect { object.destroy }.to change {Caber::Relation.count}.by(-1)
+    end
+  end
+
 end
