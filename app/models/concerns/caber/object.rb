@@ -25,5 +25,4 @@ module Caber::Object
   def revoke_all_permissions(subject)
     Caber::Relation.where(object: self, subject: subject).destroy_all
   end
-
 end
