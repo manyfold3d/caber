@@ -8,6 +8,14 @@ module Caber::Object
     def self.can_grant_permissions_to(model)
       has_many :"permitted_#{model.name.pluralize.parameterize}", through: :caber_relations, source: :subject, source_type: model.name
     end
+
+    scope :granted_to, ->(permission, subject) {
+                         includes(:caber_relations).where(
+                           "caber_relations.subject_id": subject.id,
+                           "caber_relations.subject_type": subject.class.name,
+                           "caber_relations.permission": permission
+                         )
+                       }
   end
 
   def grant_permission_to(permission, subject)

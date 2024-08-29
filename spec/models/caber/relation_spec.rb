@@ -45,6 +45,14 @@ RSpec.describe Caber::Relation, :multiuser do
     it "includes Alice in a list of users with viewer permission for the object" do
       expect(object.permitted_users.with_permission("viewer")).to include alice
     end
+
+    it "can get a list of objects that Alice has permission on" do
+      expect(Document.granted_to("viewer", alice)).to include object
+    end
+
+    it "can get a list of objects that Alice one of many permissions on" do
+      expect(Document.granted_to(["viewer", "owner"], alice)).to include object
+    end
   end
 
   context "with multiple objects" do
@@ -60,6 +68,10 @@ RSpec.describe Caber::Relation, :multiuser do
 
     it "does not include second (ungranted) object in Alices permitted object list" do
       expect(alice.permitted_documents.with_permission("viewer")).not_to include object_two
+    end
+
+    it "does not include second object in list of objects that Alice has permission on" do
+      expect(Document.granted_to("viewer", alice)).not_to include object_two
     end
   end
 
