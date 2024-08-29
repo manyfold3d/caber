@@ -83,6 +83,25 @@ user.permitted_documents.with_permission ["viewer", "editor"]
 
 ```
 
+The inverse relationship is also possible by specifying `can_grant_permissions_to` on objects:
+
+```
+class Document < ApplicationRecord
+  include Caber::Object
+  can_grant_permissions_to User
+end
+
+document.permitted_users
+# => all users with any permission
+
+document.permitted_users.with_permission "viewer"
+# => all users with viewer permission
+
+document.permitted_users.with_permission ["viewer", "editor"]
+# => all users with viewer or editor permission
+
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests.

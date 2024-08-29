@@ -37,6 +37,14 @@ RSpec.describe Caber::Relation, :multiuser do
     it "gives Alice a list of objects she can view" do
       expect(alice.permitted_documents.with_permission("viewer")).to include object
     end
+
+    it "includes Alice in a list of permitted users for the object" do
+      expect(object.permitted_users).to include alice
+    end
+
+    it "includes Alice in a list of users with viewer permission for the object" do
+      expect(object.permitted_users.with_permission("viewer")).to include alice
+    end
   end
 
   context "with multiple objects" do
@@ -74,6 +82,10 @@ RSpec.describe Caber::Relation, :multiuser do
 
     it "gives Alice a list of objects she can view or own" do
       expect(alice.permitted_documents.with_permission(["viewer", "owner"])).to include object
+    end
+
+    it "includes Alice in a list of users with viewer or owner permission for the object" do
+      expect(object.permitted_users.with_permission(["viewer", "owner"])).to include alice
     end
   end
 
