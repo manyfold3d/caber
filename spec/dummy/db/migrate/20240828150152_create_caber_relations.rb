@@ -6,6 +6,7 @@ class CreateCaberRelations < ActiveRecord::Migration[7.2]
       t.references :object, polymorphic: true, null: false
 
       t.timestamps
+      t.index [:subject_id, :subject_type, :object_id, :object_type], unique: true
     end
   end
 end

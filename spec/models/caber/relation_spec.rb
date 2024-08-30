@@ -139,6 +139,27 @@ RSpec.describe Caber::Relation, :multiuser do
     end
   end
 
+  context "changing permissions" do
+    before do
+      object.grant_permission_to "viewer", alice
+    end
+
+    it "should update the existing permission relation" do
+      expect { object.grant_permission_to("editor", alice) }
+        .not_to change(Caber::Relation, :count)
+    end
+
+    it "should store the new permission" do
+      object.grant_permission_to("editor", alice)
+      expect(alice.has_permission_on?("editor", object)).to be true
+    end
+
+    it "should overwrite the old permission" do
+      object.grant_permission_to("editor", alice)
+      expect(alice.has_permission_on?("viewer", object)).to be false
+    end
+  end
+
   context "removing permissions on object/subject removal" do
     before do
       object.grant_permission_to "viewer", alice
