@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_28_150152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["object_type", "object_id"], name: "index_caber_relations_on_object"
+    t.index ["subject_id", "subject_type", "object_id", "object_type"], name: "idx_on_subject_id_subject_type_object_id_object_typ_a279b094be", unique: true
     t.index ["subject_type", "subject_id"], name: "index_caber_relations_on_subject"
   end
 

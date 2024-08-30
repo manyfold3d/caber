@@ -18,7 +18,9 @@ module Caber::Object
   end
 
   def grant_permission_to(permission, subject)
-    Caber::Relation.create!(subject: subject, permission: permission, object: self)
+    rel = Caber::Relation.find_or_initialize_by(subject: subject, object: self)
+    rel.permission = permission
+    rel.save!
   end
 
   def grants_permission_to?(permission, subject)
