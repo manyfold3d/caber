@@ -1,9 +1,13 @@
 # Caber
 
-![Gem Downloads (for latest version)](https://img.shields.io/gem/dtv/caber)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/manyfold3d/caber/push.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/87209d996d4ffb7517c5/maintainability)](https://codeclimate.com/github/manyfold3d/caber/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/87209d996d4ffb7517c5/test_coverage)](https://codeclimate.com/github/manyfold3d/caber/test_coverage)
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/rubygems/caber)
-![Dependent repos (via libraries.io)](https://img.shields.io/librariesio/dependent-repos/rubygems/caber)
 
+![GitHub Release](https://img.shields.io/github/v/release/manyfold3d/caber)
+![Gem Downloads (for latest version)](https://img.shields.io/gem/dtv/caber)
+![Dependent repos (via libraries.io)](https://img.shields.io/librariesio/dependent-repos/rubygems/caber)
 
 A simple [ReBAC](https://en.wikipedia.org/wiki/Relationship-based_access_control) / [Zanzibar](https://research.google/pubs/zanzibar-googles-consistent-global-authorization-system/) backend plugin for Rails apps. Allows you to easily specify permission relationships between pairs of objects, e.g. granting edit permission on a document to a specific user, like in Google Docs.
 
