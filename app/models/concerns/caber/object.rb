@@ -24,7 +24,7 @@ module Caber::Object
   end
 
   def grants_permission_to?(permission, subject)
-    Caber::Relation.where(object: self, subject: [subject, nil], permission: permission).present?
+    Caber::Relation.where(object: self, subject: [subject, nil].flatten, permission: permission).present?
   end
 
   def revoke_permission(permission, subject)
