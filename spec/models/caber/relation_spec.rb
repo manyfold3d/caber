@@ -101,6 +101,20 @@ RSpec.describe Caber::Relation, :multiuser do
     end
   end
 
+  context "checking more than one subject at once" do
+    before do
+      object.grant_permission_to "viewer", alice
+    end
+
+    it "confirms that one of alice or bob have been given viewer permission" do
+      expect(object.grants_permission_to?("viewer", [alice, bob])).to be true
+    end
+
+    it "confirms that bob has not been given viewer permission" do
+      expect(object.grants_permission_to?("viewer", [bob])).to be false
+    end
+  end
+
   context "when anyone can view a object" do
     before do
       object.grant_permission_to "viewer", nil
